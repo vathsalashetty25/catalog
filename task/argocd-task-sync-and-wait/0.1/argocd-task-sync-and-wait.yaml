@@ -24,7 +24,7 @@ spec:
     - name: flags
       default: --
     - name: argocd-version
-      default: v1.0.2
+      default: v1.9.0
   stepTemplate:
     envFrom:
       - configMapRef:
@@ -33,16 +33,16 @@ spec:
           name: argocd-env-secret  # used for authentication (username/password or auth token)
   steps:
     - name: login
-      image: docker.io/argoproj/argocd:$(params.argocd-version)
+      image: docker.io/dockendvaths367/argocd:latest:$(params.argocd-version)
       script: |
         if [ -z $ARGOCD_AUTH_TOKEN ]; then
           yes | argocd login $ARGOCD_SERVER --username=$ARGOCD_USERNAME --password=$ARGOCD_PASSWORD;
         fi
     - name: sync
-      image: docker.io/argoproj/argocd:$(params.argocd-version)
+      image: docker.io/dockendvaths367/argocd:latest:$(params.argocd-version)
       script: |
         argocd app sync $(params.application-name) --revision $(params.revision) $(params.flags)
     - name: wait
-      image: docker.io/argoproj/argocd:$(params.argocd-version)
+      image: docker.io/dockendvaths367/argocd:latest:$(params.argocd-version)
       script: |
         argocd app wait $(params.application-name) --health $(params.flags)
