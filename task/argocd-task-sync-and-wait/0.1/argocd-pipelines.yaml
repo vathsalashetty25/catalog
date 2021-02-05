@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-env-configmap
 data:
-  ARGOCD_SERVER: 10.100.253.7:80
+  ARGOCD_SERVER: tcp://10.100.253.7:80
 ---
 apiVersion: v1
 kind: Secret
@@ -11,9 +11,10 @@ metadata:
   name: argocd-env-secret
 data:
   # choose one of username/password or auth token
-  ARGOCD_USERNAME: admin
-  ARGOCD_PASSWORD: CdIxLcfdOlpYFmmL
-  #  ARGOCD_AUTH_TOKEN: <token>
+  #ARGOCD_USERNAME: admin
+  #ARGOCD_PASSWORD: YXBwYXJnb2Nk
+  ARGOCD_AUTH_TOKEN: ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluaEJjR2hXVmpOalVXcHJjRXhmU1RFd2NYbDJhRnBQU0Vwd1lYSm9hRWQ2U0hOS05Hd3lkbk10VlRBaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUprWldaaGRXeDBJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5elpXTnlaWFF1Ym1GdFpTSTZJbUZ5WjI5alpDMXpaWEoyWlhJdGRHOXJaVzR0TkhoamJITWlMQ0pyZFdKbGNtNWxkR1Z6TG1sdkwzTmxjblpwWTJWaFkyTnZkVzUwTDNObGNuWnBZMlV0WVdOamIzVnVkQzV1WVcxbElqb2lZWEpuYjJOa0xYTmxjblpsY2lJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExuVnBaQ0k2SW1NelpUbGxaVGt6TFRaa1pqUXROREUzTkMxaE56Um1MVEUzWWpNME16VTFaR0V3T0NJc0luTjFZaUk2SW5ONWMzUmxiVHB6WlhKMmFXTmxZV05qYjNWdWREcGtaV1poZFd4ME9tRnlaMjlqWkMxelpYSjJaWElpZlEuRmNQdzE2NzZrSGNzdk1QYVdScVFYYjZ3RDl3b09ncFZKcEtZdi1OVVphY3NtVTk1ZWxMMF93Tm1iUVRzaVRoSkZFdlNGcTktLUQwWnVwZUhzMmo3Y2Z5R1hJNk5maDhGdEpSUEYtRWdjVE5OVEtJMzRQUWNHS1QwbURiZmxXbzcwS25Ldk8yemJNeklHblE1N2pXaWIyOVVyVm5yZnNrdFVBV05hQTZjSTQ1X0QtZDJETzNocFNtOTZFaEdGdlJMczdxOW5jXzVIQm1DRVF3cXQ2MkJlSFZ3T1lGeVpfcFBfLTJmUDkwYTYwVDlTT2hfd3lzaWVWczdfMmJFVVpYVnd0YW5LWUxzMElOY1Ywb3Y3dUFQdjc1QzdRV1JhNkJmYjBoQ3pXS1p0Nnd4RHJmXzJ0Mng3bUNLakhaeUw4TXlyelEzcjBnV1Rhb3JiYUJXbTg2SE13
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
@@ -31,4 +32,4 @@ spec:
         - name: application-name
           value: argocd
         - name: flags
-          value: --insecure # needed in this example only because the Argo CD server is locally hosted
+          value: --insecure --grpc-web # needed in this example only because the Argo CD server is locally hosted

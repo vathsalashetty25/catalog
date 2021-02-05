@@ -17,12 +17,12 @@ spec:
 
   params:
     - name: application-name
-      description: name of the application to sync
+      description: argocd-pipeline
     - name: revision
       description: the revision to sync to
       default: HEAD
     - name: flags
-      default: --
+      default: --insecure --grpc-web
     - name: argocd-version
       default: v1.9.0
   stepTemplate:
