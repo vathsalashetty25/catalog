@@ -23,12 +23,12 @@ spec:
   tasks:
     - name: push-to-git
       taskRef:
-        name: some-git-task # pushes to the Git repository used by the application in the next task
+        name: argocdapp # pushes to the Git repository used by the application in the next task
     - name: sync-application
       taskRef:
         name: argocd-task-sync-and-wait
       params:
         - name: application-name
-          value: argocd
+          value: argocdapp
         - name: flags
           value: --insecure --grpc-web # needed in this example only because the Argo CD server is locally hosted
